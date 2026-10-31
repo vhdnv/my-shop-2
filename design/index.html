@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>سمارت بوينت — تصميم محل هواتف وأكسسوار وصيانة</title>
+<style>
+  :root{
+    --ink:#0e1012;
+    --ink-2:#16191c;
+    --paper:#f5f0e7;
+    --paper-2:#ece4d7;
+    --brass:#c08f4e;
+    --brass-l:#e2b877;
+    --green:#1f3a34;
+    --muted:#8d8a83;
+    --line:rgba(192,143,78,.35);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Cairo","Tajawal","Noto Kufi Arabic","Dubai",Tahoma,system-ui,sans-serif;
+    font-size:17px;line-height:1.85;-webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{margin:0;line-height:1.25;font-weight:800;letter-spacing:-.01em}
+  p{margin:0 0 1em}
+  a{color:var(--brass)}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;background:rgba(14,16,18,.92);
+    backdrop-filter:blur(14px);border-bottom:1px solid rgba(192,143,78,.25);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:62px}
+  nav .brand{display:flex;align-items:center;gap:10px;color:#f4efe6;font-weight:800;letter-spacing:.02em}
+  nav .brand i{width:9px;height:9px;border-radius:50%;background:var(--brass);display:block}
+  nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:14px;color:#cfc9bf}
+  nav a{color:inherit;text-decoration:none;opacity:.9}
+  nav a:hover{color:var(--brass-l);opacity:1}
+  @media(max-width:900px){nav ul{display:none}}
+
+  /* ---------- hero ---------- */
+  header{
+    position:relative;background:var(--ink);color:var(--paper);overflow:hidden;
+  }
+  header .bg{position:absolute;inset:0;background:url("assets/exterior-day.jpg") center 35%/cover;opacity:.55}
+  header .bg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,16,18,.55) 0%,rgba(14,16,18,.72) 55%,rgba(14,16,18,.97) 100%)}
+  header .inner{position:relative;padding:110px 0 90px}
+  .kicker{display:inline-flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass-l);margin-bottom:26px}
+  .kicker:before{content:"";width:42px;height:1px;background:var(--brass)}
+  h1{font-size:clamp(42px,8vw,92px);letter-spacing:-.03em;margin-bottom:14px}
+  h1 span{display:block;color:var(--brass-l);font-size:.42em;letter-spacing:.16em;font-weight:700;margin-top:12px}
+  .lede{max-width:620px;font-size:19px;color:#d9d3c9;margin-top:22px}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
+  .chip{
+    border:1px solid rgba(192,143,78,.45);border-radius:999px;padding:7px 16px;font-size:14px;color:#e8e2d7;
+    background:rgba(255,255,255,.03)
+  }
+  .chip b{color:var(--brass-l)}
+
+  /* ---------- sections ---------- */
+  section{padding:92px 0}
+  section.dark{background:var(--ink);color:var(--paper)}
+  section.dark .lede{color:#c9c3b9}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:46px;flex-wrap:wrap}
+  .num{font-size:13px;letter-spacing:.2em;color:var(--brass);font-weight:700}
+  .sec-head h2{font-size:clamp(28px,4.4vw,46px);margin-top:8px}
+  .sec-head p{max-width:430px;margin:0;color:#6d6a63;font-size:16px}
+  section.dark .sec-head p{color:#9d978d}
+
+  .grid{display:grid;gap:26px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:900px){.g2,.g3{grid-template-columns:1fr}}
+
+  figure{margin:0}
+  figure img{width:100%;display:block;border-radius:4px;background:#ddd}
+  figcaption{font-size:13.5px;color:#7d7972;margin-top:10px;display:flex;gap:8px;align-items:baseline}
+  figcaption b{color:var(--ink);font-weight:700}
+  section.dark figcaption{color:#948e85}
+  section.dark figcaption b{color:var(--paper)}
+  .frame{border:1px solid rgba(0,0,0,.08);padding:8px;background:#fff;border-radius:6px}
+  section.dark .frame{border-color:rgba(255,255,255,.09);background:rgba(255,255,255,.03)}
+
+  .card{background:#fff;border:1px solid rgba(0,0,0,.07);border-radius:8px;padding:26px}
+  section.dark .card{background:#15181b;border-color:rgba(255,255,255,.08)}
+  .card h3{font-size:19px;margin-bottom:10px}
+  .card p:last-child{margin-bottom:0}
+  .card .ico{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(192,143,78,.14);color:var(--brass);font-weight:800;margin-bottom:16px;font-size:14px}
+
+  ul.clean{list-style:none;padding:0;margin:0}
+  ul.clean li{position:relative;padding-right:22px;margin-bottom:10px;color:#4a4741}
+  ul.clean li:before{content:"";position:absolute;right:0;top:.72em;width:7px;height:7px;border:1.5px solid var(--brass);border-radius:50%}
+  section.dark ul.clean li{color:#c3bdb3}
+
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;font-size:15px;margin:0}
+  .kv dt{color:#8a867e}
+  .kv dd{margin:0;font-weight:700}
+  section.dark .kv dt{color:#8f897f}
+
+  table{width:100%;border-collapse:collapse;font-size:15px}
+  th,td{padding:13px 12px;text-align:right;border-bottom:1px solid rgba(0,0,0,.09)}
+  th{font-size:13px;letter-spacing:.06em;color:#7e7a73;font-weight:700;border-bottom:1px solid rgba(0,0,0,.2)}
+  tbody tr:hover{background:rgba(192,143,78,.06)}
+  td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+  tfoot td{font-weight:800;border-top:2px solid var(--ink);border-bottom:none}
+  section.dark th{color:#9b958b;border-bottom-color:rgba(255,255,255,.2)}
+  section.dark td{border-bottom-color:rgba(255,255,255,.09)}
+  section.dark tfoot td{border-top-color:var(--brass)}
+  .tbl-scroll{overflow-x:auto}
+
+  .swatches{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+  @media(max-width:760px){.swatches{grid-template-columns:repeat(2,1fr)}}
+  .sw{border-radius:6px;overflow:hidden;border:1px solid rgba(0,0,0,.08)}
+  .sw div{height:92px}
+  .sw p{margin:0;padding:10px 12px;font-size:12.5px;background:#fff;line-height:1.5}
+  .sw p b{display:block;font-size:13.5px}
+
+  .timeline{list-style:none;margin:0;padding:0;border-right:2px solid rgba(192,143,78,.4)}
+  .timeline li{position:relative;padding:0 30px 30px 0}
+  .timeline li:before{content:"";position:absolute;right:-7px;top:9px;width:12px;height:12px;border-radius:50%;background:var(--brass);box-shadow:0 0 0 4px var(--paper)}
+  .timeline b{display:block;font-size:16px}
+  .timeline span{font-size:13px;color:var(--brass);font-weight:700;letter-spacing:.06em}
+  .timeline p{font-size:15px;color:#5e5a54;margin:6px 0 0}
+
+  .note{border-right:3px solid var(--brass);background:rgba(192,143,78,.09);padding:18px 22px;border-radius:0 6px 6px 0;font-size:15px;color:#4d4a44}
+  section.dark .note{background:rgba(192,143,78,.1);color:#cbc5bb}
+
+  .svgcard{background:#fbf8f2;border:1px solid rgba(0,0,0,.08);border-radius:8px;padding:18px}
+  section.dark .svgcard{background:#f7f3ec}
+  .svgcard svg{width:100%;height:auto;display:block}
+  .svgcard .cap{font-size:13px;color:#6f6b64;margin-top:8px;text-align:center}
+
+  .logo-box{background:#0e1012;border-radius:10px;padding:44px;display:grid;place-items:center;border:1px solid rgba(192,143,78,.3)}
+  .logo-box img{width:min(420px,100%)}
+
+  footer{background:#0a0c0e;color:#8e887e;padding:52px 0;font-size:14px}
+  footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+  footer b{color:#e9e3d8}
+
+  @media print{
+    nav{display:none}
+    section{padding:40px 0;break-inside:avoid}
+    header .inner{padding:60px 0}
+    body{background:#fff}
+    section.dark{background:#111 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><i></i> سمارت بوينت — ملف التصميم</div>
+    <ul>
+      <li><a href="#site">الموقع</a></li>
+      <li><a href="#concept">الفكرة</a></li>
+      <li><a href="#brand">الهوية</a></li>
+      <li><a href="#facade">الواجهة</a></li>
+      <li><a href="#plan">المخطط</a></li>
+      <li><a href="#inside">الداخل</a></li>
+      <li><a href="#specs">المواصفات</a></li>
+      <li><a href="#cost">التكلفة</a></li>
+      <li><a href="#steps">التنفيذ</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header>
+  <div class="bg"></div>
+  <div class="inner wrap">
+    <div class="kicker">تصميم معماري داخلي وخارجي · ٢٠٢٦</div>
+    <h1>سمارت بوينت<span>SMART POINT</span></h1>
+    <p class="lede">إعادة تصميم محل صغير (≈ ١١ م²) لبيع وشراء وصيانة الهواتف والأكسسوار: واجهة زجاجية مضيئة تُغيّر صورة المحل في الشارع، وداخل مُنظَّم يقسّم المساحة إلى عرض وبيع وصيانة دون أن يفقد راحة الحركة.</p>
+    <div class="chips">
+      <span class="chip">المساحة <b>≈ 11 م²</b></span>
+      <span class="chip">الواجهة <b>2.60 م</b></span>
+      <span class="chip">العمق <b>4.20 م</b></span>
+      <span class="chip">الارتفاع الصافي <b>3.05 م</b></span>
+      <span class="chip">باب المحل الحالي <b>1.32 × 2.12 م</b></span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 1. قراءة الموقع ============ -->
+<section id="site">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="num">٠١ — قراءة الموقع</div>
+        <h2>ما لدينا الآن، وما نحتاج تغييره</h2>
+      </div>
+      <p>الموقع: محل بالدور الأرضي أسفل مبنى سكني، واجهة طوب بلاكيه بني، شيش معدني أخضر، وأرضية رخام شطرنج عند المدخل، في شارع ضيق.</p>
+    </div>
+
+    <div class="grid g3" style="margin-bottom:34px">
+      <figure><img src="assets/site/site-4.jpg" alt="الواجهة الحالية للمحل"><figcaption><b>الواجهة الحالية</b> شيش معدني أخضر + واجهة مبنية بالطوب</figcaption></figure>
+      <figure><img src="assets/site/site-1.jpg" alt="داخل المحل من المدخل"><figcaption><b>الداخل</b> مساحة ضيقة وعميقة، أرفف معدنية مؤقتة</figcaption></figure>
+      <figure><img src="assets/site/site-5.jpg" alt="المحل في سياق الشارع"><figcaption><b>السياق</b> المحل ملاصق لمدخل سكني وله رصيف مرتفع</figcaption></figure>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <div class="ico">!</div>
+        <h3>التحديات</h3>
+        <ul class="clean">
+          <li><b>العرض الضيق:</b> لا يحتمل جزيرة عرض في المنتصف — العرض يُستثمر في الحوائط.</li>
+          <li><b>العمق:</b> الجزء الخلفي مظلم وغير مرئي من الشارع، فتبدو المساحة أصغر مما هي.</li>
+          <li><b>الواجهة المغلقة:</b> الشيش المعدني يخفي المحل تمامًا ويجعل صورة المكان «مخزن» لا «معرض».</li>
+          <li><b>الحرارة والغبار:</b> الشارع ترابي، ويحتاج المدخل إلى سجادة وحواجز غبار وفلاتر للتكييف.</li>
+          <li><b>الأمان:</b> أجهزة صغيرة عالية القيمة = حاجة لتأمين مزدوج (زجاج + شيش داخلي + إنذار).</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="ico">✓</div>
+        <h3>الفرص</h3>
+        <ul class="clean">
+          <li><b>واجهة زجاجية كاملة:</b> تحوّل المحل إلى «صندوق ضوء» مرئي من آخر الشارع ليلًا.</li>
+          <li><b>إضاءة طبقات:</b> ٣ مستويات (عام + رفوف + مهام) تعطي إحساسًا بالاتساع وتُبرز الهواتف.</li>
+          <li><b>ركن صيانة مرئي:</b> ورشة صغيرة خلف زجاج = رسالة ثقة ومصداقية للعميل.</li>
+          <li><b>استغلال الارتفاع ٣ م:</b> تخزين علوي مغلق يوفّر مساحة أرضية للعرض.</li>
+          <li><b>هوية واضحة:</b> لافتة واحدة قوية + لون واحد مميز يجعل المحل علامة في الشارع.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:30px">
+      <b>ملاحظة عن المقاسات:</b> الأبعاد المستخدمة في هذا الملف مبنية على الاسكتش اليدوي المرسل (باب المحل 132 × 212 سم) وعلى تقدير الواجهة من الصور. الأرقام النهائية تُثبَّت بعد «الرفع الميداني» بالمتر الليزر قبل تنفيذ أي بند من بنود النجارة أو الألومنيوم.
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. الفكرة ============ -->
+<section id="concept" class="dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="num">٠٢ — الفكرة التصميمية</div>
+        <h2>صندوق ضوء داخل صندوق طوب</h2>
+      </div>
+      <p>لا نغيّر المبنى؛ نضع داخله عنصرًا جديدًا متناقضًا معه. الطوب البني يبقى كما هو، وبداخله جسم من الزجاج والنحاس والخشب الدافئ.</p>
+    </div>
+
+    <div class="grid g3" style="margin-bottom:40px">
+      <div class="card"><div class="ico">١</div><h3>ضوء</h3><p>إضاءة دافئة ٣٠٠٠ كلفن داخل المحل، ولافتة بيضاء مضيئة تُقرأ ليلًا. المحل نفسه يصبح «إعلان» الشارع.</p></div>
+      <div class="card"><div class="ico">٢</div><h3>خشب</h3><p>خشب بلوط فاتح للجدران والأرفف: دافئ، رخيص التنفيذ، ويُبرز الهواتف السوداء كخلفية هادئة.</p></div>
+      <div class="card"><div class="ico">٣</div><h3>نحاس</h3><p>لمسات نحاسية رقيقة (شرائط، مقابض، أرجل الكاونتر). لا تُستخدم بكثرة: خط نحاسي واحد يكفي ليُشعرك بالفخامة.</p></div>
+    </div>
+
+    <div class="grid g2" style="align-items:center">
+      <figure class="frame"><img src="assets/exterior-day.jpg" alt="تصور الواجهة نهارًا"><figcaption><b>الواجهة نهارًا</b> إطار أسود مطفي + زجاج كامل + لافتة مضيئة</figcaption></figure>
+      <div>
+        <h3 style="font-size:26px;margin-bottom:16px">ثلاث قواعد تحكم كل التفاصيل</h3>
+        <ul class="clean">
+          <li><b>خطوط قليلة:</b> لا نقوش ولا زخارف؛ الشبكة (Grid) هي التصميم.</li>
+          <li><b>المنتج هو البطل:</b> خلفيات محايدة، وإضاءة موجّهة، ومسافات متساوية بين الأجهزة.</li>
+          <li><b>العميل يمشي في مسار واحد:</b> يدخل → يرى العرض → يصل للكاونتر → يرى الصيانة → يخرج. بدون تصادم حركة.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. الهوية ============ -->
+<section id="brand">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="num">٠٣ — الهوية واللافتة</div>
+        <h2>الاسم والعلامة والألوان</h2>
+      </div>
+      <p>اسم مقترح قابل للتغيير: «سمارت بوينت / SMART POINT». الحروف اللاتينية تُقرأ سريعًا من بعيد، والعربية تُثبّت الاسم محليًا.</p>
+    </div>
+
+    <div class="grid g2" style="align-items:center;margin-bottom:40px">
+      <div class="logo-box"><img src="assets/logo.svg" alt="شعار سمارت بوينت"></div>
+      <div>
+        <h3 style="font-size:22px;margin-bottom:12px">تكوين الشعار</h3>
+        <ul class="clean">
+          <li>رمز: مستطيل بزوايا دائرية يمثل الهاتف، بداخله إشارة «S/P» مبنية بخط واحد.</li>
+          <li>اللاتينية بخط Sans هندسي ثقيل، والعربية أسفلها بوزن أخف.</li>
+          <li>خط فاصل نحاسي رقيق بين السطرين — نفس الخط يتكرر في الواجهة والشهادات.</li>
+          <li>النسخة الليلية: حروف بيضاء مضيئة على خلفية فحمية.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="swatches" style="margin-bottom:34px">
+      <div class="sw"><div style="background:#15181b"></div><p><b>فحمي</b>#15181B — الإطارات والواجهة</p></div>
+      <div class="sw"><div style="background:#c08f4e"></div><p><b>نحاسي</b>#C08F4E — لمسات ولمبات</p></div>
+      <div class="sw"><div style="background:#1f3a34"></div><p><b>أخضر داكن</b>#1F3A34 — جدار الصيانة</p></div>
+      <div class="sw"><div style="background:#c99a63"></div><p><b>خشب بلوط</b>#C99A63 — الأرفف</p></div>
+      <div class="sw"><div style="background:#efe7da;border-bottom:1px solid #ddd"></div><p><b>بيج فاتح</b>#EFE7DA — الأرض والسقف</p></div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3>مواصفات اللافتة الخارجية</h3>
+        <dl class="kv">
+          <dt>المقاس</dt><dd>2.60 × 0.50 م (أعلى الواجهة)</dd>
+          <dt>الخلفية</dt><dd>كلادينج أو أكريليك أسود مطفي</dd>
+          <dt>الحروف</dt><dd>أكريليك أبيض ٥ مم بارز ٣ سم، مضاء من الخلف</dd>
+          <dt>الإضاءة</dt><dd>LED 6500K، محول داخل صندوق اللافتة</dd>
+          <dt>الصيانة</dt><dd>فتحة وصول من الداخل + مفتاح منفصل</dd>
+        </dl>
+      </div>
+      <div class="card">
+        <h3>لافتات فرعية</h3>
+        <ul class="clean">
+          <li>ستيكر زجاجي على الباب: «بيع · شراء · صيانة» بحروف نحاسية.</li>
+          <li>لوحة أسعار/عروض مغناطيسية 40×60 سم على الجدار الأيسر.</li>
+          <li>لافتة داخلية على ركن الصيانة: «ضمان repair 30 يوم».</li>
+          <li>ساعة عمل مضيئة صغيرة بجانب المدخل.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. الواجهة ============ -->
+<section id="facade" class="dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="num">٠٤ — التصميم الخارجي</div>
+        <h2>الواجهة: زجاج كامل، إطار أسود، شيش مخفي</h2>
+      </div>
+      <p>نفتح الواجهة بين العمودين ونضع إطار ألومنيوم أسود رفيع، ونُخفي الشيش المعدني للأمان داخل «صندوق» أعلى الواجهة حتى لا يظهر في النهار.</p>
+    </div>
+
+    <figure class="frame" style="margin-bottom:34px">
+      <img src="assets/exterior-day.jpg" alt="منظور الواجهة نهارًا">
+      <figcaption><b>منظور الواجهة — نهارًا</b> الإطار الأسود + الزجاج السيكوريت + شريط الإضاءة الخطي أسفل اللافتة</figcaption>
+    </figure>
+
+    <div class="grid g2" style="margin-bottom:34px">
+      <figure class="frame"><img src="assets/exterior-night.jpg" alt="الواجهة ليلًا"><figcaption><b>الواجهة — ليلًا</b> المحل يعمل كإعلان مضيء للشارع</figcaption></figure>
+      <div class="svgcard">
+        <svg viewBox="0 0 460 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="مسقط رأسي للواجهة">
+          <g font-family="Cairo,Tahoma,sans-serif" fill="#15181b">
+            <!-- building -->
+            <rect x="30" y="40" width="400" height="450" fill="#e9e0d2" stroke="#cfc3ae"/>
+            <!-- sign fascia -->
+            <rect x="80" y="70" width="300" height="58" fill="#15181b"/>
+            <text x="230" y="108" font-size="21" fill="#f4efe6" text-anchor="middle" font-weight="700" letter-spacing="3">SMART POINT</text>
+            <!-- glass -->
+            <rect x="80" y="128" width="300" height="286" fill="#cfe0e3" stroke="#15181b" stroke-width="5"/>
+            <!-- mullions: door leaf 1.10 m = 127px, from x=253 to 380 -->
+            <line x1="253" y1="128" x2="253" y2="414" stroke="#15181b" stroke-width="5"/>
+            <line x1="200" y1="128" x2="200" y2="414" stroke="#15181b" stroke-width="2.5"/>
+            <!-- door handle -->
+            <line x1="266" y1="246" x2="266" y2="330" stroke="#9a6f34" stroke-width="6" stroke-linecap="round"/>
+            <!-- recessed vitrine inside (dashed) -->
+            <rect x="96" y="330" width="96" height="60" fill="none" stroke="#8fb3b8" stroke-width="2" stroke-dasharray="6 5"/>
+            <text x="144" y="366" font-size="11" fill="#4e8085" text-anchor="middle">فيترينة</text>
+            <!-- threshold + street -->
+            <rect x="80" y="414" width="300" height="22" fill="#8f8a80"/>
+            <rect x="30" y="436" width="400" height="54" fill="#d9d2c6"/>
+            <text x="230" y="468" font-size="13" fill="#6c675f" text-anchor="middle">الشارع / الرصيف</text>
+
+            <!-- vertical dims -->
+            <g stroke="#b01212" stroke-width="1" fill="#b01212" font-size="12">
+              <line x1="400" y1="70" x2="400" y2="128"/>
+              <line x1="395" y1="70" x2="405" y2="70"/><line x1="395" y1="128" x2="405" y2="128"/>
+              <text x="418" y="104" text-anchor="middle">0.50</text>
+
+              <line x1="400" y1="128" x2="400" y2="414"/>
+              <line x1="395" y1="128" x2="405" y2="128"/><line x1="395" y1="414" x2="405" y2="414"/>
+              <text x="418" y="276" text-anchor="middle">2.45</text>
+
+              <line x1="400" y1="414" x2="400" y2="436"/>
+              <line x1="395" y1="436" x2="405" y2="436"/>
+              <text x="418" y="430" text-anchor="middle">0.10</text>
+            </g>
+
+            <!-- horizontal dims -->
+            <g stroke="#b01212" stroke-width="1" fill="#b01212" font-size="12">
+              <line x1="80" y1="40" x2="380" y2="40"/>
+              <line x1="80" y1="34" x2="80" y2="46"/><line x1="380" y1="34" x2="380" y2="46"/>
+              <text x="230" y="30" text-anchor="middle">2.60 م (صافي بين العمودين)</text>
+
+              <line x1="253" y1="500" x2="380" y2="500"/>
+              <line x1="253" y1="494" x2="253" y2="506"/><line x1="380" y1="494" x2="380" y2="506"/>
+              <text x="316" y="520" text-anchor="middle">ضلفة الباب 1.10</text>
+            </g>
+
+            <!-- side labels -->
+            <g font-size="12" fill="#5b564e">
+              <text x="70" y="104" text-anchor="end">لافتة</text>
+              <text x="70" y="150" text-anchor="end">زجاج</text>
+              <text x="70" y="164" text-anchor="end">10 مم</text>
+              <text x="70" y="428" text-anchor="end">عتب</text>
+            </g>
+          </g>
+        </svg>
+        <div class="cap">مسقط رأسي للواجهة (مقاسات بالمتر) — يُعتمد بعد الرفع الميداني</div>
+      </div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3>بنود التنفيذ الخارجي</h3>
+        <dl class="kv">
+          <dt>الإطار</dt><dd>ألومنيوم أسود مطفي 5×5 سم</dd>
+          <dt>الزجاج</dt><dd>سيكوريت 10 مم شفاف</dd>
+          <dt>الباب</dt><dd>ضلفة زجاجية 1.10 م بمقبض نحاسي طويل</dd>
+          <dt>الأمان</dt><dd>شيش معدني داخلي يُخفي داخل صندوق علوي</dd>
+          <dt>اللافتة</dt><dd>2.60 × 0.50 م مضيئة</dd>
+          <dt>الواجهة الجانبية</dt><dd>دهان خارجي بيج فاتح + شريط نحاسي</dd>
+          <dt>العتب</dt><dd>جرانيت أسود 10 سم + فرشة تنظيف أحذية</dd>
+        </dl>
+      </div>
+      <div class="card">
+        <h3>لماذا شيش داخلي وليس خارجي؟</h3>
+        <ul class="clean">
+          <li>الشيش الخارجي يفسد صورة الواجهة الزجاجية ويحوّل المحل إلى «محل مغلق».</li>
+          <li>الشيش الداخلي يسمح برؤية المعرض نهارًا وحتى عند الإغلاق.</li>
+          <li>يُركّب على مسار علوي مخفي ويُنزل يدويًا أو بموتور صغير.</li>
+          <li>زجاج سيكوريت مقاوم للكسر + إنذار اهتزاز = طبقتا حماية.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. المخطط ============ -->
+<section id="plan">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="num">٠٥ — المخطط الداخلي</div>
+        <h2>١١ مترًا مربعًا، أربع مناطق، مسار واحد</h2>
+      </div>
+      <p>حل المساحة الضيقة لا يكون بإضافة أثاث، بل بتقسيم الحوائط: عرض على اليمين، خدمة على اليسار، صيانة في الخلف، وممر واضح في المنتصف.</p>
+    </div>
+
+    <div class="grid g2" style="align-items:start;gap:36px">
+      <div class="svgcard">
+        <svg viewBox="0 0 640 590" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="مخطط المحل">
+          <g font-family="Cairo,Tahoma,sans-serif">
+            <!-- grid bg -->
+            <defs>
+              <pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M40 0H0V40" fill="none" stroke="#e7ddcc" stroke-width="1"/>
+              </pattern>
+            </defs>
+            <rect x="0" y="0" width="640" height="590" fill="url(#g)"/>
+
+            <!-- interior 2.6 x 4.2 at 80px/m orig 190,110 -->
+            <rect x="190" y="110" width="208" height="336" fill="#fdfaf3"/>
+            <!-- walls -->
+            <path d="M182 110 H406 V454 H182 Z" fill="none" stroke="#15181b" stroke-width="10"/>
+            <!-- front glass -->
+            <line x1="190" y1="446" x2="306" y2="446" stroke="#15181b" stroke-width="5"/>
+            <line x1="378" y1="446" x2="398" y2="446" stroke="#15181b" stroke-width="5"/>
+            <line x1="306" y1="446" x2="378" y2="446" stroke="#5aa0a8" stroke-width="5" stroke-dasharray="8 5"/>
+            <text x="342" y="474" font-size="12" fill="#3f7f86" text-anchor="middle">باب زجاجي 0.90</text>
+
+            <!-- 1 vitrine front-left -->
+            <rect x="202" y="410" width="92" height="28" fill="#e7d3b6" stroke="#9a6f34"/>
+            <text x="248" y="429" font-size="11" fill="#5b4626" text-anchor="middle">فيترينة</text>
+
+            <!-- 2 counter front-left -->
+            <rect x="202" y="342" width="88" height="48" fill="#dcd6cb" stroke="#15181b"/>
+            <text x="246" y="362" font-size="11" fill="#15181b" text-anchor="middle">كاونتر</text>
+            <text x="246" y="377" font-size="11" fill="#15181b" text-anchor="middle">الخدمة</text>
+            <circle cx="246" cy="318" r="9" fill="#c08f4e"/>
+            <text x="246" y="322" font-size="10" fill="#fff" text-anchor="middle">م</text>
+
+            <!-- 3 waiting bench left -->
+            <rect x="202" y="232" width="36" height="86" fill="#1f3a34" opacity=".85"/>
+            <text x="220" y="280" font-size="10" fill="#fff" text-anchor="middle" transform="rotate(-90 220 280)">انتظار</text>
+
+            <!-- 4 storage back-left -->
+            <rect x="202" y="118" width="48" height="70" fill="#cfc6b6" stroke="#6b6459"/>
+            <text x="226" y="158" font-size="10" fill="#3b362e" text-anchor="middle">مخزن</text>
+
+            <!-- 5 repair bench back -->
+            <rect x="262" y="118" width="128" height="48" fill="#d9e6e2" stroke="#1f3a34"/>
+            <text x="326" y="139" font-size="11" fill="#1f3a34" text-anchor="middle">ركن الصيانة</text>
+            <text x="326" y="153" font-size="9.5" fill="#1f3a34" text-anchor="middle">بنش + شفاط + إضاءة</text>
+            <!-- partition -->
+            <line x1="262" y1="176" x2="390" y2="176" stroke="#5aa0a8" stroke-width="4" stroke-dasharray="7 4"/>
+            <text x="262" y="190" font-size="9.5" fill="#3f7f86">حاجز زجاجي 1.00 م</text>
+
+            <!-- 6 right display wall -->
+            <rect x="362" y="190" width="28" height="150" fill="#e5c79b" stroke="#9a6f34"/>
+            <text x="376" y="270" font-size="10" fill="#5b4626" text-anchor="middle" transform="rotate(-90 376 270)">جدار العرض</text>
+            <!-- merchandise ticks -->
+            <g stroke="#9a6f34" stroke-width="1">
+              <line x1="366" y1="205" x2="386" y2="205"/><line x1="366" y1="225" x2="386" y2="225"/>
+              <line x1="366" y1="245" x2="386" y2="245"/><line x1="366" y1="265" x2="386" y2="265"/>
+              <line x1="366" y1="285" x2="386" y2="285"/><line x1="366" y1="305" x2="386" y2="305"/>
+              <line x1="366" y1="325" x2="386" y2="325"/>
+            </g>
+
+            <!-- small ped window display right front -->
+            <rect x="352" y="390" width="38" height="40" fill="#e5c79b" stroke="#9a6f34"/>
+            <text x="371" y="414" font-size="9" fill="#5b4626" text-anchor="middle">عرض</text>
+
+            <!-- aisle arrow -->
+            <path d="M330 400 C330 330 300 300 300 220" fill="none" stroke="#c08f4e" stroke-width="2.5" stroke-dasharray="7 6"/>
+            <path d="M300 220 l-6 12 l12 -2 z" fill="#c08f4e"/>
+            <text x="300" y="212" font-size="10" fill="#9a6f34" text-anchor="middle">مسار العميل</text>
+
+            <!-- dims -->
+            <g stroke="#b01212" stroke-width="1" fill="#b01212" font-size="12">
+              <line x1="190" y1="92" x2="398" y2="92"/>
+              <line x1="190" y1="86" x2="190" y2="98"/><line x1="398" y1="86" x2="398" y2="98"/>
+              <text x="294" y="82" text-anchor="middle">2.60 م</text>
+
+              <line x1="430" y1="110" x2="430" y2="446"/>
+              <line x1="424" y1="110" x2="436" y2="110"/><line x1="424" y1="446" x2="436" y2="446"/>
+              <text x="448" y="282" text-anchor="middle">4.20 م</text>
+
+              <line x1="190" y1="486" x2="306" y2="486"/>
+              <line x1="190" y1="480" x2="190" y2="492"/><line x1="306" y1="480" x2="306" y2="492"/>
+              <text x="248" y="506" text-anchor="middle">1.45</text>
+            </g>
+
+            <!-- street -->
+            <text x="294" y="540" font-size="13" fill="#6c675f" text-anchor="middle">↑ الشارع</text>
+            <text x="294" y="564" font-size="11" fill="#9a948a" text-anchor="middle">المساحة الصافية ≈ 10.9 م²</text>
+          </g>
+        </svg>
+        <div class="cap">مخطط أفقي بمقياس 1:50 (تقريبي) — الأثاث والفتحات</div>
+      </div>
+
+      <div>
+        <div class="card" style="margin-bottom:22px">
+          <h3>توزيع المناطق</h3>
+          <table>
+            <thead><tr><th>المنطقة</th><th class="n">المساحة</th><th>الوظيفة</th></tr></thead>
+            <tbody>
+              <tr><td>العرض الأمامي</td><td class="n">2.6 م²</td><td>فيترينة + واجهة زجاجية</td></tr>
+              <tr><td>الخدمة والبيع</td><td class="n">2.2 م²</td><td>كاونتر + كاشير + تغليف</td></tr>
+              <tr><td>جدار العرض</td><td class="n">1.6 م²</td><td>هواتف + أكسسوار</td></tr>
+              <tr><td>ركن الصيانة</td><td class="n">1.9 م²</td><td>بنش + أدوات + قطع غيار</td></tr>
+              <tr><td>انتظار وممر</td><td class="n">2.6 م²</td><td>حركة 1.0 م صافية</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <h3>قواعد التخطيط</h3>
+          <ul class="clean">
+            <li>ممر صافٍ لا يقل عن <b>0.90 م</b> من الباب حتى الكاونتر.</li>
+            <li>العميل لا يدخل منطقة الصيانة؛ يفصله حاجز زجاجي بارتفاع 1.00 م.</li>
+            <li>الكاونتر على بعد خطوة من الباب: البائع يرى الشارع والزجاج معًا.</li>
+            <li>الرفوف على عمق 30–35 سم فقط حتى لا تضيّق الممر.</li>
+            <li>الجزء العلوي (2.10 م+) تخزين مغلق بأبواب — لا يظهر منه شيء.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. الداخل ============ -->
+<section id="inside" class="dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="num">٠٦ — التصميم الداخلي</div>
+        <h2>الداخل: خشب دافئ، أسود، ولمسة أخضر</h2>
+      </div>
+      <p>سقف فحمي منخفض الإحساس + جدران خشب بلوط + أرضيات بورسلين بيج فاتح. الألوان الداكنة تُقلل الشعور بالضيق حين تكون في السقف فقط.</p>
+    </div>
+
+    <figure class="frame" style="margin-bottom:34px">
+      <img src="assets/interior-main.jpg" alt="منظور الداخل من المدخل">
+      <figcaption><b>المنظور الرئيسي من المدخل</b> جدار عرض يمين + جدار زجاجي مضلّع يسار + كاونتر خلفي بلون أخضر داكن</figcaption>
+    </figure>
+
+    <div class="grid g2" style="margin-bottom:34px">
+      <figure class="frame"><img src="assets/interior-accessories.jpg" alt="جدار الأكسسوار ومنطقة الانتظار"><figcaption><b>جدار الأكسسوار</b> أرفف سوداء بإضاءة مخفية + مقعد انتظار أخضر + مرآة نحاسية</figcaption></figure>
+      <figure class="frame"><img src="assets/interior-repair.jpg" alt="ركن الصيانة"><figcaption><b>ركن الصيانة</b> بنش عمل + لوح أدوات خشبي + إضاءة مهام + جدار أخضر داكن</figcaption></figure>
+    </div>
+
+    <div class="grid g3">
+      <div class="card">
+        <h3>جدار العرض (يمين)</h3>
+        <ul class="clean">
+          <li>خشب بلوط طبيعي أو MDF قشرة 18 مم.</li>
+          <li>7 أرفف سوداء معدنية بعمق 30 سم، مسافة 25 سم بينها.</li>
+          <li>شريط LED مخفي تحت كل رف (3000K).</li>
+          <li>قاعدة سفلية مغلقة بأدراج للأجهزة الغالية.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>الكاونتر</h3>
+        <ul class="clean">
+          <li>سطح ميكروسمنت أبيض أو كوارتز فاتح.</li>
+          <li>جسم أسود مطفي + قاعدة نحاسية 8 سم.</li>
+          <li>درج نقدية مقفول + رف تغليف مخفي.</li>
+          <li>فيترينة زجاجية صغيرة على السطح لجهازين.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>ركن الصيانة</h3>
+        <ul class="clean">
+          <li>بنش 160×60 سم بارتفاع 90 سم.</li>
+          <li>شفاط دخان صغير + مصباح عدسة LED.</li>
+          <li>لوح أدوات مثقب + أدراج قطع غيار مرقّمة.</li>
+          <li>حاجز زجاجي يفصل العميل + إنتركوم للتسليم.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. المواصفات ============ -->
+<section id="specs">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="num">٠٧ — التشطيبات والإضاءة والكهرباء</div>
+        <h2>جدول المواصفات الفنية</h2>
+      </div>
+      <p>مواصفات قابلة للتسعير مباشرة مع أي مقاول أو ورشة نجارة. الأولوية للبنود التي تُرى وتُلمس: الأرض، الجدار، الأرفف، الإضاءة.</p>
+    </div>
+
+    <div class="tbl-scroll" style="margin-bottom:36px">
+      <table>
+        <thead><tr><th>العنصر</th><th>المواصفة</th><th>ملاحظات التنفيذ</th></tr></thead>
+        <tbody>
+          <tr><td><b>الأرضيات</b></td><td>بورسلين 60×60 بيج فاتح، ملمس مطفي</td><td>فواصل 2 مم بلون قريب، ضروري لتقليل الانزلاق والغبار</td></tr>
+          <tr><td><b>الحوائط</b></td><td>خشب بلوط + دهان أخضر داكن (جدار الصيانة)</td><td>دهان شبه مطفي قابل للغسل، وشرائط نحاسية 10 مم</td></tr>
+          <tr><td><b>السقف</b></td><td>جبسوم بورد أسود مطفي + مسار معدني مكشوف</td><td>ارتفاع صافي 2.85 م بعد السقف، مع كشف للصيانة</td></tr>
+          <tr><td><b>الواجهة</b></td><td>ألومنيوم أسود + زجاج سيكوريت 10 مم</td><td>شبك أمان داخلي + قفل أرضي</td></tr>
+          <tr><td><b>الإنارة العامة</b></td><td>2 × خطي LED 3000K، CRI ≥ 90</td><td>طول 1.5 م على مسار واحد في المنتصف</td></tr>
+          <tr><td><b>إنارة العرض</b></td><td>Spot 7W بزاوية 24° على كل رف</td><td>2000K دافئ — يبرز لون الأجهزة الحقيقي</td></tr>
+          <tr><td><b>إنارة المهام</b></td><td>مصباح عدسة 5W على بنش الصيانة</td><td>مستقل بمفتاح، إضاءة 1000 لوكس</td></tr>
+          <tr><td><b>الواجهة exterior</b></td><td>شريط LED 24V أسفل اللافتة</td><td>مقاوم للماء IP65، محول محمي</td></tr>
+          <tr><td><b>التكييف</b></td><td>سبليت 1.5 حصان إنفرتر</td><td>موضع الوحدة الداخلية أعلى الجدار الخلفي</td></tr>
+          <tr><td><b>الكهرباء</b></td><td>لوحة 12 قاطع + 8 نقاط كهرباء + 2 USB</td><td>منفصلة: إنارة / تكييف / أجهزة عرض / ورشة</td></tr>
+          <tr><td><b>البيانات</b></td><td>راوتر + كابل شبكة للكاشير + Wi-Fi للعملاء</td><td>كابل مخفي في مواسير داخل الحوائط</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3>٣ طبقات إضاءة</h3>
+        <ul class="clean">
+          <li><b>عامة:</b> خطي LED في المنتصف — يملأ الفراغ بالضوء ويُظهر العمق.</li>
+          <li><b>عرض:</b> سبوتات موجّهة على الأرفف — تجعل الأجهزة تبدو فاخرة.</li>
+          <li><b>مهام:</b> مصباح عدسة على بنش الصيانة + إضاءة داخل الأدراج.</li>
+        </ul>
+        <p style="margin:14px 0 0;font-size:14px;color:#6d6a63">الكثافة المستهدفة: 500–700 لوكس على الأرفف، 300 لوكس للمرور، 1000 لوكس على بنش الصيانة.</p>
+      </div>
+      <div class="card">
+        <h3>الأمان والتشغيل</h3>
+        <ul class="clean">
+          <li>كاميرا داخلية 2MP بزاوية واسعة + كاميرا على الواجهة.</li>
+          <li>إنذار اهتزاز للزجاج + حساس حركة داخل المحل.</li>
+          <li>خزنة صغيرة مثبتة أرضيًا للأجهزة عالية القيمة.</li>
+          <li>طفاية حريق 6 كجم + كاشف دخان (إلزامي للترخيص).</li>
+          <li>مفتاح رئيسي خلف الكاونتر يفصل إنارة الواجهة عند الإغلاق.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. التكلفة ============ -->
+<section id="cost" class="dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="num">٠٨ — التكلفة التقديرية</div>
+        <h2>ثلاث درجات تنفيذ</h2>
+      </div>
+      <p>أرقام إرشادية بالجنيه المصري لأعمال التشطيب والديكور فقط (بدون إيجار أو ترخيص أو بضاعة). تُطلب ٣ عروض أسعار قبل الترسية.</p>
+    </div>
+
+    <div class="tbl-scroll" style="margin-bottom:26px">
+      <table>
+        <thead>
+          <tr><th>البند</th><th class="n">اقتصادي</th><th class="n">متوازن ★</th><th class="n">فاخر</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>فتح الواجهة ومعالجة المبنى</td><td class="n">6,000</td><td class="n">9,000</td><td class="n">13,000</td></tr>
+          <tr><td>ألومنيوم + زجاج سيكوريت</td><td class="n">22,000</td><td class="n">34,000</td><td class="n">52,000</td></tr>
+          <tr><td>شيش أمان داخلي</td><td class="n">6,000</td><td class="n">9,000</td><td class="n">14,000</td></tr>
+          <tr><td>لافتة مضيئة وحروف بارزة</td><td class="n">7,000</td><td class="n">13,000</td><td class="n">24,000</td></tr>
+          <tr><td>تشطيب الواجهة ودهانات خارجية</td><td class="n">4,000</td><td class="n">7,000</td><td class="n">12,000</td></tr>
+          <tr><td>كهرباء وإنارة</td><td class="n">12,000</td><td class="n">20,000</td><td class="n">32,000</td></tr>
+          <tr><td>تكييف وتهوية</td><td class="n">9,000</td><td class="n">14,000</td><td class="n">22,000</td></tr>
+          <tr><td>أسقف جبس/معدن + إنارة مدمجة</td><td class="n">6,000</td><td class="n">10,000</td><td class="n">18,000</td></tr>
+          <tr><td>أرضيات بورسلين</td><td class="n">4,000</td><td class="n">7,000</td><td class="n">13,000</td></tr>
+          <tr><td>أثاث العرض والجدران الخشبية</td><td class="n">28,000</td><td class="n">48,000</td><td class="n">80,000</td></tr>
+          <tr><td>كاونتر + فيترينة</td><td class="n">12,000</td><td class="n">20,000</td><td class="n">34,000</td></tr>
+          <tr><td>تجهيز ركن الصيانة</td><td class="n">9,000</td><td class="n">15,000</td><td class="n">26,000</td></tr>
+          <tr><td>كاميرات وإنذار</td><td class="n">5,000</td><td class="n">8,000</td><td class="n">14,000</td></tr>
+          <tr><td>براندنج وستيكرات ولوحات</td><td class="n">2,000</td><td class="n">5,000</td><td class="n">9,000</td></tr>
+          <tr><td>تخزين وخزنة وأثاث انتظار</td><td class="n">5,000</td><td class="n">9,000</td><td class="n">16,000</td></tr>
+          <tr><td>مصنعية ونقل وطوارئ (≈10%)</td><td class="n">14,000</td><td class="n">23,000</td><td class="n">38,000</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td>الإجمالي التقديري</td><td class="n">151,000 ج.م</td><td class="n">251,000 ج.م</td><td class="n">417,000 ج.م</td></tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="grid g3">
+      <div class="card"><h3>اقتصادي</h3><p>نفس التخطيط واللون، بمواد محلية: MDF melamine بدل القشرة، زجاج 8 مم، إنارة عادية. مناسب لو الميزانية هي القيد الأول.</p></div>
+      <div class="card"><h3>متوازن ★</h3><p>الاختيار الموصى به: واجهة سيكوريت 10 مم، خشب قشرة بلوط، إضاءة ثلاث طبقات، لافتة مضيئة. أفضل قيمة مقابل الشكل النهائي.</p></div>
+      <div class="card"><h3>فاخر</h3><p>خشب طبيعي، ميكروسمنت مصنّع، نحاس حقيقي، إضاءة DALI قابلة للتشغيل السيناريوهات، شيش بموتور. لماركة تريد التميّز في الشارع.</p></div>
+    </div>
+
+    <div class="note" style="margin-top:26px">
+      <b>غير مشمول في الأرقام:</b> الإيجار والتأمين، الترخيص والسجل التجاري، البضاعة الافتتاحية (تُقدَّر منفصلة بـ 150–400 ألف حسب حجم المخزون)، أجور العمالة، ومصاريف التشغيل الشهرية.
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9. التنفيذ ============ -->
+<section id="steps">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="num">٠٩ — خطة التنفيذ</div>
+        <h2>٥ إلى ٦ أسابيع من الاعتماد إلى الافتتاح</h2>
+      </div>
+      <p>الترتيب مهم: الكهرباء والتكييف قبل الأسقف، والأسقف قبل النجارة، والنجارة قبل الزجاج حتى لا تُخدش.</p>
+    </div>
+
+    <div class="grid g2" style="gap:44px;align-items:start">
+      <ol class="timeline">
+        <li><span>الأسبوع ١</span><b>الرفع الميداني والتصميم التنفيذي</b><p>قياسات ليزر، رفع مخفي للكهرباء، اعتماد الرسومات والمواد، التعاقد مع ورشة النجارة والألومنيوم.</p></li>
+        <li><span>الأسبوع ٢</span><b>الأعمال المدنية والكهروميكانيك</b><p>فتح الواجهة، ترميم، مواسير كهرباء وسباكة، نقاط التكييف، تلييس الحوائط.</p></li>
+        <li><span>الأسبوع ٣</span><b>الأسقف والأرضيات والدهانات</b><p>جبسوم بورد ومجرى الإنارة، بورسلين الأرضيات، دهانات الجدران.</p></li>
+        <li><span>الأسبوع ٤</span><b>النجارة والديكور</b><p>جدار العرض، الكاونتر، أرفف الأكسسوار، ركن الصيانة، الأدراج.</p></li>
+        <li><span>الأسبوع ٥</span><b>الواجهة واللافتة</b><p>ألومنيوم وزجاج، شبك الأمان، تركيب اللافتة المضيئة وتوصيلها.</p></li>
+        <li><span>الأسبوع ٦</span><b>التركيبات والتسليم</b><p>إنارة، كاميرات، تكييف، تنظيف، تنسيق العرض الأول، تجربة تشغيل، افتتاح.</p></li>
+      </ol>
+
+      <div>
+        <div class="card" style="margin-bottom:22px">
+          <h3>قبل الافتتاح — قائمة تحقق</h3>
+          <ul class="clean">
+            <li>تجربة كل نقطة كهرباء وإنارة على حدة.</li>
+            <li>اختبار الشيش والقفل والإنذار أمام العميل.</li>
+            <li>ترتيب الأرفف: الهواتف أعلى، الأكسسوار في المنتصف، الخدمات أسفل.</li>
+            <li>لوحة أسعار واضحة لكل خدمة صيانة (شاشة + ورق).</li>
+            <li>نظام تسجيل أجهزة العملاء (ورقة استلام + باركود).</li>
+            <li>تصوير احترافي للمحل نهارًا وليلًا لصفحات السوشيال.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>٣ أفكار تسويقية مبنية على التصميم</h3>
+          <ul class="clean">
+            <li><b>الواجهة كشاشة:</b> شاشة صغيرة داخل الزجاج تعرض عروض اليوم — مساحة إعلانية مجانية.</li>
+            <li><b>الصيانة المرئية:</b> صور قبل/بعد للإصلاحات على شاشة ركن الصيانة.</li>
+            <li><b>إضاءة ليلية:</b> تشغيل اللافتة والزجاج حتى بعد الإغلاق = علامة مضيئة في شارع مظلم.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div><b>سمارت بوينت — ملف تصميم</b><br>محل بيع وشراء وصيانة هواتف وأكسسوار · 2026</div>
+    <div>التصاميم Visualization توضيحية — تُعتمد الرسومات التنفيذية بعد الرفع الميداني<br>للطباعة: Ctrl / Cmd + P ثم «حفظ كـ PDF»</div>
+  </div>
+</footer>
+
+</body>
+</html>
